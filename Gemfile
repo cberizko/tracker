@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '~> 2.3'
 
 gem 'active_model_serializers'
 gem 'attr_defaultable', require: 'extend_attr_defaultable'

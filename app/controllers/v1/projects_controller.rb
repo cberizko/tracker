@@ -22,7 +22,7 @@ module V1
       param :path, :id, :string, :required, 'User Id'
     end
     def show
-      project = Project.find_by params[:id]
+      project = Project.find_by(id: params[:id])
       if project.present?
         render json: project
       else
@@ -51,7 +51,7 @@ module V1
       param :form, :description, :string, :optional, 'Project description'
     end
     def update
-      project = Project.find_by params[:id]
+      project = Project.find_by(id: params[:id])
       if project.present? && project.update_attributes(project_params)
         render json: project
       elsif project.present?
@@ -66,7 +66,7 @@ module V1
       param :path, :id, :string, :required, 'Project Id'
     end
     def destroy
-      project = Project.find_by params[:id]
+      project = Project.find_by(id: params[:id])
       if project.present? && project.update_attributes(state: :disabled)
         render json: project
       elsif project.present?
@@ -79,11 +79,11 @@ module V1
     private
 
     def index_params
-      params.permit(:page, :page_size).to_h.symbolize_keys
+      params.permit(:page, :page_size).symbolize_keys
     end
 
     def project_params
-      params.require(:project).permit :name, :description
+      params.require(:project).permit(:name, :description)
     end
   end
 end
