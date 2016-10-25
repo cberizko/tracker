@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526161257) do
+ActiveRecord::Schema.define(version: 20161024043900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,5 +26,16 @@ ActiveRecord::Schema.define(version: 20160526161257) do
   end
 
   add_index "projects", ["name"], name: "index_projects_on_name", unique: true, using: :btree
+
+  create_table "tasks", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "state",       default: 1
+    t.uuid     "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["project_id", "name"], name: "index_tasks_on_project_id_and_name", unique: true, using: :btree
 
 end
