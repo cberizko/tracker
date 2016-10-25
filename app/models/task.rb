@@ -16,9 +16,9 @@
 #
 
 class Task < ActiveRecord::Base
-  validates :name, :description, :project_id, presence: true
+	belongs_to :project
+  validates :name, :description, :project_id, :project, presence: true
   validates :name, uniqueness: {scope: :project_id}
-  belongs_to :project
 
   enum state: {
     todo: 1,
